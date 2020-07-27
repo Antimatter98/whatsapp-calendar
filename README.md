@@ -1,18 +1,18 @@
 # whatsapp-calendar
 
-Entry point: index.js
+Entry point: index.js\
 *.env needed locally for credentials*
 
 ## Important Links (Read first)
 
 #### Twilio Node environment setup: 
-[Twilio Node Setup] (https://www.twilio.com/docs/usage/tutorials/how-to-set-up-your-node-js-and-express-development-environment)
+[Twilio Node Setup](https://www.twilio.com/docs/usage/tutorials/how-to-set-up-your-node-js-and-express-development-environment)
 
 #### Twilio Whatsapp API:
-[Link] (https://www.twilio.com/docs/whatsapp/quickstart/node)
+[Link](https://www.twilio.com/docs/whatsapp/quickstart/node)
 
 #### ngrok for webhooks locally
-[Setup ngrok] (https://ngrok.com/)
+[Setup ngrok](https://ngrok.com/)
 
 ## Routes:
 
