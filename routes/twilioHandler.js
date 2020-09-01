@@ -6,7 +6,7 @@ const { sendMessageToUser } = require("../controllers/twilioWhatsapp");
 const MessagingResponse = require("twilio").twiml.MessagingResponse;
 
 //normal get request
-router.get("/sendMessage", async (req, res, next) => {
+router.get("/sendMessage", async (req, res) => {
   try {
     var msg = await sendMessageToUser(
       process.env.PHONE_NUMBER,
@@ -42,10 +42,41 @@ router.post("/receiveMessage", (req, res) => {
 
   const twiml = new MessagingResponse();
 
-  twiml.message("I acknowledge your message.");
+  //console.log(req);
+  if (req.body && req.body.Body && req.body.SmsStatus === "received") {
+    //From contains the sender's phone number.
+    const { Body, SmsMessageSid, From } = req.body;
 
-  res.writeHead(200, { "Content-Type": "text/xml" });
-  res.end(twiml.toString());
+    //Check the database for this number first
+
+    //check if the message is in a proper format
+
+    const checkTitle = Body.search("Event Title:");
+    const checkBody = Body.search("Event body:");
+    const checkStartTime = Body.search("Start time:");
+    const checkDuration = Body.search("Duration:");
+
+    console.log(checkTitle, checkBody, checkStartTime, checkDuration);
+
+    console.log(req.body);
+
+    console.log(Body); //message body contains '\n'
+    //(only if the message sent by the user is something like:)
+    //eg. message:
+    // Event title:ha
+    // Event body:bsh
+    // Start time:bhs
+    // Duration: bsns
+
+    //eg. response for message body:
+    // Body: 'Event title:ha\nEvent body:bsh\nStart time:bhs\nDuration: bsns',
+    // then split the string on '\n' maybe?
+
+    twiml.message("I acknowledge your message.");
+
+    res.writeHead(200, { "Content-Type": "text/xml" });
+    res.end(twiml.toString());
+  }
 });
 
 router.get("*", (req, res) => {
